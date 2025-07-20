@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
 
 // git init
 // git add .
-// git commit -m "Turath Code"
+// git commit -m "Palestine: A Nation’s Tale"
 // git branch -M main
 // git remote add origin https://github.com/alaaRashed2001/turath-code.git
 // git push -u origin main

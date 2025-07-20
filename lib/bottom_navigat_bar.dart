@@ -5,6 +5,7 @@ import 'package:echocode/Providers/theme_provider.dart';
 import 'package:echocode/Screens/game_screen.dart';
 import 'package:echocode/Screens/home_screen.dart';
 import 'package:echocode/Screens/settings_screen.dart';
+import 'package:echocode/Screens/survey_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -96,12 +97,21 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(
+                          Icons.rate_review,
+                          color: currentPage == 2
+                              ? AppColor.primaryColor
+                              : AppColor.secondaryColor,
+                        ),
+                        label: AppLocalizations.of(context)!.rateUs,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
                           Icons.account_circle,
                           color: currentPage == 2
                               ? AppColor.primaryColor
                               : AppColor.secondaryColor,
                         ),
-                        label: AppLocalizations.of(context)!.ibrahim,
+                        label: AppLocalizations.of(context)!.profile,
                       ),
                     ],
                   ),
@@ -112,6 +122,8 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
 
 
           body: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+
             onPageChanged: (index) {
               setState(() {
                 currentPage = index;
@@ -121,6 +133,7 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
             children: const [
               HomeScreen(),
               GameScreen(),
+              SurveyScreen(),
               SettingsScreen(),
             ],
           ),

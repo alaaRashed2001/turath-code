@@ -37,43 +37,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Stack buildTop() {
-    final top = coverHeight - profileHeight / 2;
-    final bottom = profileHeight / 2;
-
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: bottom),
-          width: double.infinity,
-          height: coverHeight,
-          color: AppColor.primaryColor,
+  Widget buildTop() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 32.h),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.black87, AppColor.primaryColor],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        Positioned(
-          top: top,
-          child: Container(
-            width: 128.w,
-            height: 120.h,
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
-            decoration: const BoxDecoration(
-              color: Color(0xFFD9D9D9),
-              shape: BoxShape.circle,
-            ),
-            child: const CircleAvatar(
-              backgroundImage: AssetImage(Assets.imagesIbrahim),
-              backgroundColor: Colors.transparent,
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 12.h),
+          Text(
+            AppLocalizations.of(context)!.project_name,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26.sp,
+              fontWeight: FontWeight.bold,
+              shadows: const [
+                Shadow(color: Colors.black45, blurRadius: 4),
+              ],
             ),
           ),
-        ),
-      ],
+          SizedBox(height: 12.h),
+          Text(
+            AppLocalizations.of(context)!.palestineNationTale,
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
+
 
   Widget buildContent(ThemeProvider themeProvider, LangProvider langProvider) {
     final isDark = themeProvider.isDarkTheme;
     final isArabic = langProvider.lang == 'ar';
+
+    final names = langProvider.lang == 'ar'
+        ? [
+      'إبراهيم حسين',
+      'محمد ماهر',
+    ]
+        : [
+      'Ibrahim Hussein',
+      'Mohammad Maher',
+    ];
+
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -81,58 +99,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GlassCard(
+            height: 130,
             child: Padding(
-              padding:  EdgeInsetsDirectional.only(start: 24.w, top: 14.h, bottom: 14.h),
-              child: Text(
-                AppLocalizations.of(context)!.ibrahimHussain,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.team_members,
+                    style: TextStyle(
+                      color: isDark ? Colors.white : Colors.black87,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ...names.map((name) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      '• $name',
+                      style: TextStyle(
+                        color: isDark ? Colors.white70 : Colors.black54,
+                        fontSize: 16,
+                      ),
+                    ),
+                  )),
+                ],
               ),
             ),
           ),
           const SizedBox(height: 16),
           GlassCard(
-            child: Padding(
-              padding:  EdgeInsetsDirectional.only(start: 24.w, top: 14.h, bottom: 14.h),
-              child: Text(
-                AppLocalizations.of(context)!.grade,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          GlassCard(
-            child: Padding(
-              padding:  EdgeInsetsDirectional.only(start: 24.w, top: 14.h, bottom: 14.h),
-              child: Text(
+            child: ListTile(
+              title: Text(
                 AppLocalizations.of(context)!.location_yasuf,
                 style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                  fontSize: 20,
+                  color: isDark ? Colors.white : Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              leading: const Icon(Icons.location_on, color: Colors.brown),
             ),
           ),
           const SizedBox(height: 16),
           GlassCard(
-            child: Padding(
-              padding:  EdgeInsetsDirectional.only(start: 24.w, top: 14.h, bottom: 14.h),
-              child: Text(
+            child: ListTile(
+              title: Text(
                 AppLocalizations.of(context)!.project_name,
                 style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black,
-                  fontSize: 20,
+                  color: isDark ? Colors.white : Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              leading: const Icon(Icons.flag, color: Colors.redAccent),
             ),
           ),
           const SizedBox(height: 20),
@@ -158,4 +177,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
+
 }
